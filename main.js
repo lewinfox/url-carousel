@@ -15,21 +15,21 @@ function cyclePageDisplay() {
 function mainLoop() {
     // Check if enough time has elapsed to change the URL target
     console.log(`${components.timeSinceLastChange}s since last change`);
-    if (components.timeSinceLastChange >= components.cycleDelay) {
-        components.progressBar.style = "width: 0%";
+    if (components.timeSinceLastChange > components.cycleDelay) {
         cyclePageDisplay();
         components.timeSinceLastChange = 0;
+        components.progressBar.style = "width: 0%";
     }
     // Update the display to show time to next change
     let timeToUpdate = components.cycleDelay - components.timeSinceLastChange;
     components.overlay.innerHTML = `${components.targetIndex + 1}/${components.targets.length}`;
-    components.timeSinceLastChange++;
 
     // Reset the width of the progress bar
     let progress = components.timeSinceLastChange / components.cycleDelay;
     console.log(`Progress: ${progress * 100}%`);
     components.progressBar.style = `width: ${progress * 100}%`;
 
+    components.timeSinceLastChange++;
 }
 
 function startCycle() {
