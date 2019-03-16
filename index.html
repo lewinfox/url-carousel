@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Webpage carousel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Look at this cool stuff</h1>
+            </div>
+        </div>
+        <div class="row" id="app-container">
+            <div class="col-12">
+                <iframe id="frame" src="page1.html" frameborder="1">
+                    <!-- Content will be displayed here -->
+                    <p>Content cannot be displayed</p>
+                </iframe>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <button class="btn btn-primary" id="btn-cycle-manual">Next display</button>
+                <button class="btn btn-success" id="btn-start-cycle">Start auto-cycle</button>
+                <button class="btn btn-danger" id="btn-stop-cycle">Stop auto-cycle</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
