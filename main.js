@@ -1,5 +1,6 @@
 console.log('main.js connected');
 
+// This object will hold all the data for the app
 const components = {}
 
 function cyclePageDisplay() {
@@ -34,6 +35,4 @@ window.onload = function () {
     components.buttonCycleManual.addEventListener('click', cyclePageDisplay);
     components.buttonStartCycle.addEventListener('click', startCycle);
     components.buttonStopCycle.addEventListener('click', stopCycle);
-    // Start the event loop
-    components.timer = window.setInterval(cyclePageDisplay, 1000);
 }
