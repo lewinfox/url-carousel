@@ -10,6 +10,8 @@ function cyclePageDisplay() {
     components.targetIndex = newIndex;
     console.log(`New target: ${components.targets[components.targetIndex]}`);
     components.frame.src = components.targets[components.targetIndex];
+    components.progressBar.style = "width: 0%";
+    components.timeSinceLastChange = 0;
 }
 
 function mainLoop() {
@@ -17,8 +19,6 @@ function mainLoop() {
     console.log(`${components.timeSinceLastChange}s since last change`);
     if (components.timeSinceLastChange > components.cycleDelay) {
         cyclePageDisplay();
-        components.timeSinceLastChange = 0;
-        components.progressBar.style = "width: 0%";
     }
     // Update the display to show time to next change
     let timeToUpdate = components.cycleDelay - components.timeSinceLastChange;
@@ -26,7 +26,6 @@ function mainLoop() {
 
     // Reset the width of the progress bar
     let progress = components.timeSinceLastChange / components.cycleDelay;
-    console.log(`Progress: ${progress * 100}%`);
     components.progressBar.style = `width: ${progress * 100}%`;
 
     components.timeSinceLastChange++;
