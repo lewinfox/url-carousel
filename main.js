@@ -8,6 +8,9 @@ function cyclePageDisplay() {
     components.targetIndex = newIndex;
     console.log(`New target: ${components.targets[components.targetIndex]}`);
     components.frame.src = components.targets[components.targetIndex];
+
+    // Update the overlay
+    components.overlay.innerHTML = components.frame.src;
 }
 
 function startCycle() {
@@ -21,6 +24,7 @@ function stopCycle() {
 }
 
 window.onload = function () {
+    // Populate the components object
     components.buttonCycleManual = document.getElementById('btn-cycle-manual');
     components.buttonStartCycle = document.getElementById('btn-start-cycle');
     components.buttonStopCycle = document.getElementById('btn-stop-cycle');
@@ -31,6 +35,8 @@ window.onload = function () {
         "page3.html"
     ];
     components.targetIndex = 0;
+    components.overlay = document.getElementById('overlay');
+
     // Attach event listeners
     components.buttonCycleManual.addEventListener('click', cyclePageDisplay);
     components.buttonStartCycle.addEventListener('click', startCycle);
