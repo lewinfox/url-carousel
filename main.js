@@ -16,13 +16,20 @@ function mainLoop() {
     // Check if enough time has elapsed to change the URL target
     console.log(`${components.timeSinceLastChange}s since last change`);
     if (components.timeSinceLastChange >= components.cycleDelay) {
+        components.progressBar.style = "width: 0%";
         cyclePageDisplay();
         components.timeSinceLastChange = 0;
     }
     // Update the display to show time to next change
     let timeToUpdate = components.cycleDelay - components.timeSinceLastChange;
-    components.overlay.innerHTML = `Next view in ${timeToUpdate}s`;
+    components.overlay.innerHTML = `${components.targetIndex + 1}/${components.targets.length}`;
     components.timeSinceLastChange++;
+
+    // Reset the width of the progress bar
+    let progress = components.timeSinceLastChange / components.cycleDelay;
+    console.log(`Progress: ${progress * 100}%`);
+    components.progressBar.style = `width: ${progress * 100}%`;
+
 }
 
 function startCycle() {
@@ -42,6 +49,7 @@ function stopCycle() {
     console.log('Stopping auto-cycle');
     window.clearInterval(components.timer);
     components.timeSinceLastChange = 0;
+    components.progressBar.style = `width: ${progress * 100}%`;
 }
 
 window.onload = function () {
@@ -59,6 +67,7 @@ window.onload = function () {
     components.overlay = document.getElementById('overlay');
     components.cycleDelay = document.getElementById('cycle-delay').valueAsNumber;  // Time spent on each display
     components.timeSinceLastChange = 0;  // Tracks when we need to switch to a new target
+    components.progressBar = document.getElementById('progress-bar');
 
     // Attach event listeners
     components.buttonCycleManual.addEventListener('click', cyclePageDisplay);
