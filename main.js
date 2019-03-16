@@ -4,23 +4,44 @@ console.log('main.js connected');
 const components = {}
 
 function cyclePageDisplay() {
+    // Loop through the list of URLs and update the iframe's target to the
+    // next one
     newIndex = (components.targetIndex + 1) % components.targets.length
     components.targetIndex = newIndex;
     console.log(`New target: ${components.targets[components.targetIndex]}`);
     components.frame.src = components.targets[components.targetIndex];
+}
 
-    // Update the overlay
-    components.overlay.innerHTML = components.frame.src;
+function mainLoop() {
+    // Check if enough time has elapsed to change the URL target
+    console.log(`${components.timeSinceLastChange}s since last change`);
+    if (components.timeSinceLastChange >= components.cycleDelay) {
+        cyclePageDisplay();
+        components.timeSinceLastChange = 0;
+    }
+    // Update the display to show time to next change
+    let timeToUpdate = components.cycleDelay - components.timeSinceLastChange;
+    components.overlay.innerHTML = `Next view in ${timeToUpdate}s`;
+    components.timeSinceLastChange++;
 }
 
 function startCycle() {
-    console.log('Starting auto-cycle');
-    components.timer = window.setInterval(cyclePageDisplay, 1000);
+    // Kill the timer
+    window.clearInterval(components.timer);
+
+    // Grab the cycle interval
+    components.cycleDelay = document.getElementById('cycle-delay').valueAsNumber;
+    console.log(`Starting auto-cycle every ${components.cycleDelay}s`);
+
+    // Call the mainLoop() function every second. mainLoop handles updating the
+    // timer and decides when to switch URL targets.
+    components.timer = window.setInterval(mainLoop, 1000);
 }
 
 function stopCycle() {
     console.log('Stopping auto-cycle');
     window.clearInterval(components.timer);
+    components.timeSinceLastChange = 0;
 }
 
 window.onload = function () {
@@ -29,13 +50,15 @@ window.onload = function () {
     components.buttonStartCycle = document.getElementById('btn-start-cycle');
     components.buttonStopCycle = document.getElementById('btn-stop-cycle');
     components.frame = document.getElementById('frame');
-    components.targets = [
+    components.targets = [  // URLs to dsplay in the iframe
         "page1.html",
         "page2.html",
         "page3.html"
     ];
     components.targetIndex = 0;
     components.overlay = document.getElementById('overlay');
+    components.cycleDelay = document.getElementById('cycle-delay').valueAsNumber;  // Time spent on each display
+    components.timeSinceLastChange = 0;  // Tracks when we need to switch to a new target
 
     // Attach event listeners
     components.buttonCycleManual.addEventListener('click', cyclePageDisplay);

@@ -22,14 +22,12 @@
         <div class="row" id="app-container">
             <div class="col-12">
                 <iframe id="frame" src="page1.html" frameborder="1">
-                    <!-- Content will be displayed here -->
-                    <p>Content cannot be displayed</p>
+                    <!-- Content goes here -->
                 </iframe>
                 <!-- Overlay -->
                 <div id="overlay">
                     <span id="overlay-content">
                         <!-- Floating overlay here -->
-                        Insert message here
                     </span>
                 </div>
             </div>
@@ -37,6 +35,7 @@
         <div class="row mt-3">
             <div class="col-12">
                 <button class="btn btn-primary" id="btn-cycle-manual">Next display</button>
+                <input type="number" id="cycle-delay" min="1" step="1" value="1">
                 <button class="btn btn-success" id="btn-start-cycle">Start auto-cycle</button>
                 <button class="btn btn-danger" id="btn-stop-cycle">Stop auto-cycle</button>
             </div>
